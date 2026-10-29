@@ -5,7 +5,7 @@
   var heroVideo = document.querySelector(".hero-media video");
   var heroSrc = {
     day: "assets/ucd_cloth_fling.mp4",
-    night: "assets/ucd_cloth_fling_night.mp4"
+    night: "assets/ucd_cloth_fling_night_0f1218.mp4"
   };
 
   function currentHeroSrc() {
