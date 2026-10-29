@@ -109,11 +109,14 @@ img { max-width: 100%; height: auto; }
 .hero {
   display: flex;
   align-items: flex-start;
-  gap: 2.2rem;
-  padding-top: 2.6rem;
+  overflow: visible;
+  position: relative;
+  z-index: 1;
+  padding-top: 5.6rem;
+  margin-bottom: 7rem;
 }
 
-.hero-copy { flex: 1.15; min-width: 0; }
+.hero-copy { width: 55%; }
 
 .hero-copy p { max-width: 36rem; }
 
@@ -129,28 +132,91 @@ img { max-width: 100%; height: auto; }
 .hero-links a { color: var(--ink); }
 
 .hero-media {
-  flex: 0.9;
-  min-width: 0;
-  margin-top: 0.2rem;
+  width: 45%;
+  position: relative;
 }
 
-.hero-media img {
+.hero-media video {
+  position: absolute;
+  top: -150px;
+  left: 72px;
+  width: 350px;
+  max-width: none;
+  height: auto;
+  z-index: -1;
+  clip-path: inset(1px);
+}
+
+.slideshow-container {
+  position: relative;
   width: 100%;
-  display: block;
+  margin: 1.4rem 0 0.4rem;
+  overflow: hidden;
+  background: #111;
 }
 
-.band {
-  display: grid;
-  grid-template-columns: 1.3fr 1fr 1fr;
-  gap: 0.45rem;
-  margin-top: 1.2rem;
+.mySlides {
+  display: none;
 }
 
-.band img {
+.mySlides img {
   width: 100%;
-  height: 168px;
+  height: min(62vh, 520px);
   object-fit: cover;
   display: block;
+}
+
+.fade {
+  animation: fade 1.2s ease;
+}
+
+@keyframes fade {
+  from { opacity: 0.35; }
+  to { opacity: 1; }
+}
+
+.occ {
+  display: block;
+  color: var(--grey);
+  font-size: 0.95rem;
+  margin-top: 0.08rem;
+}
+
+.robots {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(10.5rem, 1fr));
+  gap: 1rem 0.85rem;
+  margin: 0.6rem 0 0.4rem;
+}
+
+.robot {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.robot:hover { text-decoration: none; }
+
+.robot img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
+  background: #f3f3f3;
+}
+
+.robot-name {
+  display: block;
+  margin-top: 0.4rem;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.robot-role {
+  display: block;
+  font-size: 0.92rem;
+  color: var(--grey);
+  line-height: 1.25;
 }
 
 .faculty {
@@ -185,7 +251,10 @@ img { max-width: 100%; height: auto; }
   padding: 0;
 }
 
-.people li { margin: 0.18rem 0; }
+.people li {
+  margin: 0.55rem 0;
+  line-height: 1.3;
+}
 
 .people.cols {
   columns: 2;
@@ -339,10 +408,28 @@ img { max-width: 100%; height: auto; }
     flex-direction: column;
   }
 
+  .hero {
+    padding-top: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-copy,
   .hero-media { width: 100%; }
 
-  .band { grid-template-columns: 1fr; }
-  .band img { height: 200px; }
+  .hero-media video {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 0;
+    margin-top: 1.4rem;
+  }
+
+  .mySlides img { height: min(42vh, 280px); }
+
+  .robots {
+    grid-template-columns: repeat(2, 1fr);
+  }
 
   .project { flex-direction: column; }
 
