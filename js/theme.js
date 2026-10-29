@@ -2,35 +2,47 @@
   var root = document.documentElement;
   var btn = document.getElementById("theme-toggle");
   var label = btn && btn.querySelector(".theme-label");
-
   var heroVideo = document.querySelector(".hero-media video");
-  var heroSrc = { day: "assets/ucd_cloth_fling.mp4", night: "assets/ucd_cloth_fling_night.mp4" };
+  var heroSrc = {
+    day: "assets/ucd_cloth_fling.mp4",
+    night: "assets/ucd_cloth_fling_night.mp4"
+  };
+
+  function currentHeroSrc() {
+    if (!heroVideo) return "";
+    var srcEl = heroVideo.querySelector("source");
+    return (srcEl && srcEl.getAttribute("src")) || heroVideo.getAttribute("src") || "";
+  }
+
+  function setHeroVideo(night) {
+    if (!heroVideo) return;
+    var want = night ? heroSrc.night : heroSrc.day;
+    if (currentHeroSrc().indexOf(want) !== -1) return;
+    var srcEl = heroVideo.querySelector("source");
+    if (srcEl) srcEl.setAttribute("src", want);
+    heroVideo.setAttribute("src", want);
+    heroVideo.load();
+    var play = heroVideo.play();
+    if (play && play.catch) play.catch(function () {});
+  }
 
   function applyTheme(night) {
     root.classList.toggle("night", night);
-    if (heroVideo) {
-      var want = night ? heroSrc.night : heroSrc.day;
-      var cur = heroVideo.getAttribute("src") || (heroVideo.querySelector("source") || {}).getAttribute && heroVideo.querySelector("source").getAttribute("src") || "";
-      if (!cur.endsWith(want)) {
-        var srcEl = heroVideo.querySelector("source");
-        if (srcEl) srcEl.setAttribute("src", want);
-        heroVideo.setAttribute("src", want);
-        heroVideo.load();
-        var p = heroVideo.play();
-        if (p && p.catch) p.catch(function () {});
-      }
-    }
+    setHeroVideo(night);
     if (!btn) return;
     btn.setAttribute("aria-pressed", night ? "true" : "false");
     if (label) label.textContent = night ? "Day" : "Night";
   }
 
+  var night = false;
+  try { night = localStorage.getItem("theme") === "night"; } catch (e) {}
+  applyTheme(night);
+
   if (btn) {
-    applyTheme(localStorage.getItem("theme") === "night");
     btn.addEventListener("click", function () {
-      var night = !root.classList.contains("night");
+      night = !root.classList.contains("night");
       applyTheme(night);
-      localStorage.setItem("theme", night ? "night" : "day");
+      try { localStorage.setItem("theme", night ? "night" : "day"); } catch (e) {}
     });
   }
 })();

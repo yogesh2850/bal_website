@@ -42,9 +42,22 @@
       </div>
     </div>
     <div class="hero-media">
-      <video autoplay loop muted playsinline width="240">
+      <video id="hero-video" autoplay loop muted playsinline width="240">
         <source src="assets/ucd_cloth_fling.mp4" type="video/mp4">
       </video>
+      <script>
+        (function () {
+          try {
+            if (localStorage.getItem("theme") !== "night") return;
+            var v = document.getElementById("hero-video");
+            if (!v) return;
+            var s = v.querySelector("source");
+            var night = "assets/ucd_cloth_fling_night.mp4";
+            if (s) s.setAttribute("src", night);
+            v.setAttribute("src", night);
+          } catch (e) {}
+        })();
+      </script>
     </div>
   </div>
   <script src="js/theme.js"></script>
