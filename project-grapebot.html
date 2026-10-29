@@ -9,6 +9,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <script>
+    try { if (localStorage.getItem("theme") === "night") document.documentElement.classList.add("night"); } catch (e) {}
+  </script>
 </head>
 <body>
   <header id="header">
@@ -20,6 +23,10 @@
         <a href="publications.html">Publications</a>
         <a href="contact.html">Contact</a>
       </nav>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-pressed="false" aria-label="Toggle night mode">
+          <span class="dot" aria-hidden="true"></span>
+          <span class="theme-label">Night</span>
+        </button>
     </div>
   </header>
 
@@ -35,5 +42,6 @@
     <p>A steering motor and a sprocket-and-chain turn the front wheel plus or minus 90 degrees. With differential drive on the rear wheels, the turning radius is nearly zero, and the robot drives forward and backward with the same accuracy. Top speed is 3 m/s; software limits it to 1 m/s, about walking speed. Given a digital map of the vineyard it navigates on its own, and it can also be driven with an Xbox controller. An emergency stop on the electronics bay cuts all power.</p>
     <p>The robot runs with instrumented picking carts. The system needs the positions of the robot, the carts, and the collection station, plus a digitized vineyard map for routing. Other software decides how one robot should serve several pickers. Much of that stack started in an earlier USDA-NIFA project on robotic aids for strawberry harvest.</p>
   </article>
+  <script src="js/theme.js"></script>
 </body>
 </html>

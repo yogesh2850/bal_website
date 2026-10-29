@@ -9,6 +9,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <script>
+    try { if (localStorage.getItem("theme") === "night") document.documentElement.classList.add("night"); } catch (e) {}
+  </script>
 </head>
 <body>
   <header id="header">
@@ -20,6 +23,10 @@
         <a href="publications.html">Publications</a>
         <a href="contact.html">Contact</a>
       </nav>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-pressed="false" aria-label="Toggle night mode">
+          <span class="dot" aria-hidden="true"></span>
+          <span class="theme-label">Night</span>
+        </button>
     </div>
   </header>
 
@@ -33,5 +40,6 @@
       <iframe src="https://www.youtube.com/embed/fb8yKNWcxDQ" title="Automated strawberry capping machine" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
     </div>
   </article>
+  <script src="js/theme.js"></script>
 </body>
 </html>

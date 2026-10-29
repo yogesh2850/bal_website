@@ -10,6 +10,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <script>
+    try { if (localStorage.getItem("theme") === "night") document.documentElement.classList.add("night"); } catch (e) {}
+  </script>
 </head>
 <body>
   <header id="header">
@@ -21,6 +24,10 @@
         <a href="publications.html" class="current">Publications</a>
         <a href="contact.html">Contact</a>
       </nav>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-pressed="false" aria-label="Toggle night mode">
+          <span class="dot" aria-hidden="true"></span>
+          <span class="theme-label">Night</span>
+        </button>
     </div>
   </header>
 
@@ -198,5 +205,6 @@
 <li>“Design and modelling approaches for advanced agricultural fleet management systems”, D.D. Bochtis, C.G. Sørensen, S.G. Vougioukas. Chapter 8 in Agricultural and Environmental Informatics, Governance, and Management: Emerging Research Applications. Editors: Zacharoula Andreopoulou, Basil Manos, Nico Polman, Davide Viaggi. IGI Global, Hershey, Pennsylvania, 2011, pp. 152–171. <a href="https://doi.org/10.4018/978-1-60960-621-3.ch008">https://doi.org/10.4018/978-1-60960-621-3.ch008</a></li>
 
   </ol>
+  <script src="js/theme.js"></script>
 </body>
 </html>

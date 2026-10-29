@@ -84,6 +84,8 @@ img { max-width: 100%; height: auto; }
   padding: 0.65rem 1.35rem;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
 #header nav {
@@ -91,6 +93,29 @@ img { max-width: 100%; height: auto; }
   gap: 1.7rem;
   width: min(28rem, 100%);
   justify-content: space-between;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+  border-radius: 999px;
+  padding: 5px 12px 5px 8px;
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.theme-toggle .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #f6c445;
+  box-shadow: 0 0 0 3px rgba(246, 196, 69, 0.28);
 }
 
 #header a {
@@ -527,4 +552,86 @@ body.home {
   .gallery { grid-template-columns: 1fr; }
 
   .video { padding-top: 56.25%; }
+
+  .theme-toggle {
+    padding: 7px;
+  }
+
+  .theme-label { display: none; }
+}
+
+html.night body {
+  background: #0f1218;
+  color: #b8c0c8;
+}
+
+html.night {
+  color-scheme: dark;
+}
+
+html.night h1,
+html.night h2,
+html.night h3,
+html.night h4,
+html.night .role,
+html.night .accent,
+html.night .robot-name,
+html.night .grant-title,
+html.night .person-info a,
+html.night .project h3 a,
+html.night .courses b,
+html.night .contact-block .label,
+html.night .hero-links a {
+  color: #e8eef4;
+}
+
+html.night a { color: #e8eef4; }
+
+html.night .prose a,
+html.night .pubs a,
+html.night .grant-title a {
+  color: #9db7ff;
+}
+
+html.night #header {
+  background: rgba(15, 18, 24, 0.82);
+  border-bottom-color: #2a3340;
+}
+
+html.night #header a { color: #9aa5b0; }
+
+html.night #header a:hover,
+html.night #header a.current {
+  color: #e8eef4;
+}
+
+html.night .theme-toggle {
+  border-color: #3a4554;
+  color: #e8eef4;
+}
+
+html.night .theme-toggle .dot {
+  background: #d5e4ff;
+  box-shadow: 0 0 0 3px rgba(213, 228, 255, 0.22);
+}
+
+html.night .meta,
+html.night .occ,
+html.night .robot-role,
+html.night .grant-meta {
+  color: #9aa5b0;
+}
+
+html.night .person-placeholder {
+  background: #1c2430;
+  color: #9aa5b0;
+}
+
+html.night .project,
+html.night .slideshow-container {
+  border-color: #2a3340;
+}
+
+html.night .robot:hover .robot-name {
+  color: #9db7ff;
 }
