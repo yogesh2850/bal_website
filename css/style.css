@@ -116,12 +116,12 @@ body.home {
   overflow: visible;
   position: relative;
   padding-top: 5.6rem;
-  margin-bottom: 7em;
-  min-height: 28rem;
+  margin-bottom: 3em;
+  min-height: 18rem;
 }
 
 .hero-copy {
-  width: 55%;
+  width: 58%;
   position: relative;
   z-index: 2;
 }
@@ -142,16 +142,16 @@ body.home {
 .hero-links a { color: var(--ink); }
 
 .hero-media {
-  width: 45%;
+  width: 42%;
   position: relative;
-  min-height: 24rem;
+  min-height: 16rem;
 }
 
 .hero-media video {
   position: absolute;
-  top: -150px;
-  left: 100px;
-  width: 350px;
+  top: -40px;
+  left: 40px;
+  width: 240px;
   max-width: none;
   height: auto;
   z-index: 1;
@@ -446,7 +446,7 @@ body.home {
     position: relative;
     top: 0;
     left: 0;
-    width: 100%;
+    width: min(240px, 70vw);
     z-index: 0;
   }
 
