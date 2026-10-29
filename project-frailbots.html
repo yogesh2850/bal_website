@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FRAIL-bots — Bio-Automation Lab</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header id="header">
+    <div class="bar">
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="lab.html">Lab</a>
+        <a href="research.html" class="current">Research</a>
+        <a href="publications.html">Publications</a>
+      </nav>
+    </div>
+  </header>
+
+  <article class="prose">
+    <h1 style="font-size:2rem; margin-top:1.4rem">FRAIL-bots</h1>
+    <p class="meta">Fragile-crop harvest-aiding mobile robots · USDA-NIFA, National Robotics Initiative</p>
+    <figure class="figure">
+      <img src="assets/frailbots.jpg" alt="A worker walking a strawberry row with small harvest-aid robots behind them">
+    </figure>
+    <p>Hand harvest of fresh-market fragile crops is one of the hardest mechanization problems in U.S. fruit and vegetable production. Labor can be as much as 60% of variable cost, and shortages have meant lost production. Conventional mechanical and robotic harvesters have not matched the judgment, dexterity, and speed of experienced crews at a competing cost. Conveyors and platforms reduce the walking that comes with carrying fruit to a loading station, but adoption has been slow: they are expensive, awkward to move between fields, need a skilled driver, and often trade ergonomics for speed.</p>
+    <p>This project laid the groundwork for teams of small, relatively inexpensive harvest-aiding robots. The co-bots bring empty containers to pickers and carry full ones to unloading stations. Together they are meant to be an easy-to-deploy transport system that raises productivity, safety, and ergonomics with as few robots as possible.</p>
+    <p>The approach treats manual harvesting and container transport as the production and materials-handling functions of a flexible manufacturing system. Stochastic models of picking and of the robot fleet are written so they can be optimized numerically. A model-predictive dispatcher uses crop yield and work patterns to anticipate where transport will be needed, and matches fleet capacity to that demand. The same idea extends to other labor-intensive specialty crops and to logistics in highly mechanized ones.</p>
+    <div class="video">
+      <iframe src="https://www.youtube.com/embed/AiRdUr04_YI" title="FRAIL-bots in action" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="video">
+      <iframe src="https://www.youtube.com/embed/LbacidTzIxE" title="Collaborative harvest-aid robots for strawberry harvesting" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </article>
+</body>
+</html>
