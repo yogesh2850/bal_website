@@ -106,17 +106,25 @@ img { max-width: 100%; height: auto; }
 
 #header a.current { font-weight: 600; }
 
+body.home {
+  overflow-x: clip;
+}
+
 .hero {
   display: flex;
   align-items: flex-start;
   overflow: visible;
   position: relative;
-  z-index: 1;
   padding-top: 5.6rem;
-  margin-bottom: 7rem;
+  margin-bottom: 7em;
+  min-height: 28rem;
 }
 
-.hero-copy { width: 55%; }
+.hero-copy {
+  width: 55%;
+  position: relative;
+  z-index: 2;
+}
 
 .hero-copy p { max-width: 36rem; }
 
@@ -125,8 +133,10 @@ img { max-width: 100%; height: auto; }
 .hero-links {
   display: flex;
   gap: 1.6rem;
-  margin-top: 1.6rem;
+  margin-top: 2em;
   font-weight: 600;
+  width: 60%;
+  justify-content: space-between;
 }
 
 .hero-links a { color: var(--ink); }
@@ -134,17 +144,19 @@ img { max-width: 100%; height: auto; }
 .hero-media {
   width: 45%;
   position: relative;
+  min-height: 24rem;
 }
 
 .hero-media video {
   position: absolute;
   top: -150px;
-  left: 72px;
+  left: 100px;
   width: 350px;
   max-width: none;
   height: auto;
-  z-index: -1;
+  z-index: 1;
   clip-path: inset(1px);
+  pointer-events: none;
 }
 
 .slideshow-container {
@@ -411,10 +423,24 @@ img { max-width: 100%; height: auto; }
   .hero {
     padding-top: 1.2rem;
     margin-bottom: 1.5rem;
+    min-height: 0;
+    flex-direction: column;
   }
 
   .hero-copy,
   .hero-media { width: 100%; }
+
+  .hero-links {
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 1rem 1.4rem;
+    justify-content: flex-start;
+  }
+
+  .hero-media {
+    min-height: 0;
+    margin-top: 1.4rem;
+  }
 
   .hero-media video {
     position: relative;
@@ -422,7 +448,6 @@ img { max-width: 100%; height: auto; }
     left: 0;
     width: 100%;
     z-index: 0;
-    margin-top: 1.4rem;
   }
 
   .mySlides img { height: min(42vh, 280px); }
