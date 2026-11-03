@@ -24,66 +24,60 @@
         <a href="publications.html">Publications</a>
         <a href="contact.html">Contact</a>
       </nav>
-      <button type="button" class="theme-toggle" id="theme-toggle" aria-pressed="false" aria-label="Toggle night mode">
-        <span class="dot" aria-hidden="true"></span>
-        <span class="theme-label">Night</span>
-      </button>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-pressed="false" aria-label="Toggle night mode">
+          <span class="dot" aria-hidden="true"></span>
+          <span class="theme-label">Night</span>
+        </button>
     </div>
   </header>
 
-  <section class="hero" aria-label="Bio-Automation Lab">
-    <video
-      class="hero-video"
-      autoplay
-      muted
-      loop
-      playsinline
-      preload="metadata"
-      poster="assets/tree-fruit-card.jpg"
-      aria-hidden="true"
-    >
-      <source src="assets/multiarm.mp4" type="video/mp4">
-    </video>
-
-    <div class="hero-wrap">
-      <p class="eyebrow">UC Davis · Biological and Agricultural Engineering</p>
+  <div class="hero">
+    <div class="hero-copy">
       <h1>Bio-Automation<br>Lab</h1>
-      <p class="hero-sub">Agricultural robotics, mechanization, and automation for specialty crops — robotic harvesting, perception, and control that work in the field.</p>
-      <div class="hero-actions">
-        <a class="btn btn-light" href="lab.html">Lab</a>
-        <a class="btn btn-outline-light" href="#highlights">Highlights</a>
-        <a class="btn btn-outline-light" href="research.html">Research</a>
-        <a class="btn btn-outline-light" href="publications.html">Publications</a>
+      <p>We are the <span class="accent">Bio-Automation Lab @ UC Davis</span>. We work on agricultural robotics, mechanization, and automation for specialty crops, focusing on robotic and robot-aided harvesting and on actuators, perception, and control for managing inputs and products.</p>
+      <div class="hero-links">
+        <a href="https://scholar.google.com/citations?user=bbeoNpUAAAAJ&amp;hl=en">Google Scholar</a>
+        <a href="https://bae.ucdavis.edu/">Department</a>
+        <a href="mailto:svougioukas@ucdavis.edu">Email</a>
       </div>
     </div>
-
-    <div class="hero-progress" aria-hidden="true"><span></span></div>
-    <button class="hero-toggle" type="button" aria-label="Pause background video">
-      <svg class="i-pause" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1h3v10H2zM7 1h3v10H7z"/></svg>
-      <svg class="i-play" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 1l8 5-8 5z"/></svg>
-    </button>
-  </section>
-
-  <div class="home-main">
-    <section class="home-highlights" id="highlights" aria-labelledby="highlights-title">
-      <div class="section-head">
-        <div>
-          <h2 id="highlights-title">Highlights</h2>
-          <p class="section-kicker">Recent papers and active grants.</p>
-        </div>
-        <div class="roller-controls">
-          <button class="roller-btn" type="button" data-roll="-1" aria-label="Previous highlight">&#8592;</button>
-          <button class="roller-btn" type="button" data-roll="1" aria-label="Next highlight">&#8594;</button>
-        </div>
-      </div>
-      <div class="roller" id="home-highlights">
-        <div class="roller-track"></div>
-      </div>
-      <p class="highlights-more"><a href="research.html">See all research</a> · <a href="publications.html">Publications</a></p>
-    </section>
+    <div class="hero-media">
+      <video id="hero-video" autoplay loop muted playsinline width="300">
+        <source src="assets/ucd_cloth_fling.mp4" type="video/mp4">
+      </video>
+      <script>
+        (function () {
+          try {
+            if (localStorage.getItem("theme") !== "night") return;
+            var v = document.getElementById("hero-video");
+            if (!v) return;
+            var s = v.querySelector("source");
+            var night = "assets/ucd_cloth_fling_night_0f1218.mp4";
+            if (s) s.setAttribute("src", night);
+            v.setAttribute("src", night);
+          } catch (e) {}
+        })();
+      </script>
+    </div>
   </div>
 
-  <script src="js/hero.js"></script>
+  <section class="home-highlights" aria-labelledby="highlights-title">
+    <div class="section-head">
+      <div>
+        <h2 id="highlights-title">Highlights</h2>
+        <p class="section-kicker">Recent papers and active grants.</p>
+      </div>
+      <div class="roller-controls">
+        <button class="roller-btn" type="button" data-roll="-1" aria-label="Previous highlight">&#8592;</button>
+        <button class="roller-btn" type="button" data-roll="1" aria-label="Next highlight">&#8594;</button>
+      </div>
+    </div>
+    <div class="roller" id="home-highlights">
+      <div class="roller-track"></div>
+    </div>
+    <p class="highlights-more"><a href="research.html">See all research</a> · <a href="publications.html">Publications</a></p>
+  </section>
+
   <script src="js/highlights.js?v=3"></script>
   <script src="js/theme.js"></script>
 </body>
