@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UR10 — Bio-Automation Lab</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    try { if (localStorage.getItem("theme") === "night") document.documentElement.classList.add("night"); } catch (e) {}
+  </script>
+</head>
+<body>
+  <header id="header">
+    <div class="bar">
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="lab.html">Lab</a>
+        <a href="research.html" class="current">Research</a>
+        <a href="publications.html">Publications</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-pressed="false" aria-label="Toggle night mode">
+          <span class="dot" aria-hidden="true"></span>
+          <span class="theme-label">Night</span>
+        </button>
+    </div>
+  </header>
+
+  <article class="prose">
+    <h1 style="font-size:2rem; margin-top:1.4rem">UR10 collaborative robot arms</h1>
+    <p class="meta">Universal Robots UR10 · Bio-Automation Lab</p>
+    <figure class="figure">
+      <img src="assets/ur10.jpg" alt="Two UR10 arms holding a UC Davis banner in the lab">
+    </figure>
+    <p>The lab operates Universal Robots UR10 arms for manipulation research and demos—dual-arm coordination, cloth handling, and other tabletop tasks that support agricultural robotics work.</p>
+    <div class="video">
+      <video controls preload="metadata" playsinline muted loop>
+        <source src="assets/ucd_cloth_fling.mp4" type="video/mp4">
+      </video>
+    </div>
+    <p class="video-caption">Dual UR10 cloth-fling demo (also on the homepage).</p>
+  </article>
+  <script src="js/theme.js"></script>
+</body>
+</html>
