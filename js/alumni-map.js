@@ -6,6 +6,8 @@
   // Locations inferred from LinkedIn profile locations / public affiliations
   // linked from the Alumni list. Update here when someone moves.
   var ALUMNI = [
+    { name: "Tianyang Liao", country: "United States", iso: "USA", role: "M.Sc., UC Davis", url: "https://www.linkedin.com/in/tianyang-liao-b74783319/" },
+    { name: "Dennis Sadowski", country: "United States", iso: "USA", role: "Development Engineer, BAE, UC Davis", url: "https://www.bftv.ucdavis.edu/people/dennis-sadowski" },
     { name: "John Shepard", country: "United States", iso: "USA", role: "Principal, Shepard Labs", url: "https://www.linkedin.com/in/john-shepard-phd-23612414/" },
     { name: "Juan Fernando Villacrés", country: "Ecuador", iso: "ECU", role: "Assistant Professor, National Polytechnic School", url: "https://juanvillacres.github.io/" },
     { name: "Peng Wei", country: "United States", iso: "USA", role: "Assistant Professor, University of Minnesota", url: "https://www.linkedin.com/in/peng-wei-3467b0b3/" },
