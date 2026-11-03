@@ -207,6 +207,36 @@ body.home {
   animation: fade 1.2s ease;
 }
 
+.slide-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 2.4rem;
+  height: 2.4rem;
+  border: 0;
+  border-radius: 0;
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  font-size: 1.15rem;
+  line-height: 1;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  padding: 0;
+}
+
+.slide-nav:hover,
+.slide-nav:focus-visible {
+  background: rgba(0, 0, 0, 0.7);
+  outline: none;
+}
+
+.slide-nav.prev { left: 0.55rem; }
+.slide-nav.next { right: 0.55rem; }
+
+
+
 @keyframes fade {
   from { opacity: 0.35; }
   to { opacity: 1; }
@@ -640,6 +670,16 @@ html.night .person-placeholder {
 }
 
 html.night .project,
+html.night .slide-nav {
+  background: rgba(15, 18, 24, 0.55);
+  color: #f2f4f8;
+}
+
+html.night .slide-nav:hover,
+html.night .slide-nav:focus-visible {
+  background: rgba(15, 18, 24, 0.85);
+}
+
 html.night .slideshow-container {
   border-color: #2a3340;
 }
