@@ -1,7 +1,9 @@
 :root {
   --ink: rgb(46, 45, 41);
   --grey: rgb(90, 90, 90);
+  /* UC Davis Aggie Blue (official brand / logo) */
   --blue: #022851;
+  --gold: #ffbf00;
   --line: #ddd;
   --width: 960px;
 }
@@ -16,7 +18,7 @@ html, body {
 body {
   max-width: var(--width);
   margin: 0 auto;
-  padding: 3.6rem 1.35rem 5rem;
+  padding: 3.6rem 1.35rem 2.4rem;
   font-family: "Source Sans 3", "Source Sans Pro", sans-serif;
   font-weight: 400;
   font-size: 17px;
@@ -24,6 +26,86 @@ body {
   letter-spacing: 0.2px;
   color: var(--grey);
   background: #fff;
+}
+
+.site-footer {
+  width: 100vw;
+  max-width: 100vw;
+  margin: 2.4rem 0 0;
+  margin-left: calc(50% - 50vw);
+  background: var(--blue);
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.86rem;
+  line-height: 1.45;
+}
+
+.site-footer .wrap {
+  max-width: var(--width);
+  margin: 0 auto;
+  padding: 2.4rem 1.35rem 1.7rem;
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1.6rem 1.75rem;
+}
+
+.site-footer .brand {
+  margin: 0;
+  color: #fff;
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.site-footer .brand-uni {
+  color: rgba(255, 255, 255, 0.72);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.site-footer p {
+  margin: 0.7rem 0 0;
+  max-width: 40ch;
+}
+
+.site-footer h2 {
+  margin: 0 0 0.55rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.site-footer ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-footer li {
+  margin: 0 0 0.3rem;
+}
+
+.site-footer a {
+  color: rgba(255, 255, 255, 0.88);
+  text-decoration: none;
+}
+
+.site-footer a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.footer-base {
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.footer-base .wrap {
+  display: block;
+  padding-top: 0.85rem;
+  padding-bottom: 1rem;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.55);
 }
 
 h1, h2, h3, h4 {
@@ -610,6 +692,11 @@ a.highlight:hover {
 
   h1 { font-size: 38px; }
 
+  .site-footer .wrap {
+    grid-template-columns: 1fr;
+    gap: 1.35rem;
+  }
+
   #header nav {
     width: 100%;
     gap: 0.8rem;
@@ -694,6 +781,19 @@ a.highlight:hover {
 html.night body {
   background: #0f1218;
   color: #b8c0c8;
+}
+
+html.night .site-footer {
+  background: var(--blue);
+  color: rgba(255, 255, 255, 0.72);
+}
+
+html.night .site-footer h2 {
+  color: var(--gold);
+}
+
+html.night .site-footer a {
+  color: rgba(255, 255, 255, 0.88);
 }
 
 html.night {
