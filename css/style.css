@@ -131,58 +131,203 @@ img { max-width: 100%; height: auto; }
 
 #header a.current { font-weight: 600; }
 
+.accent { color: var(--blue); font-weight: 600; }
+
 body.home {
+  max-width: none;
+  padding: 0 0 4.5rem;
   overflow-x: clip;
 }
 
-.hero {
-  display: flex;
-  align-items: flex-start;
-  overflow: visible;
-  position: relative;
-  padding-top: 5.6rem;
-  margin-bottom: 3em;
-  min-height: 18rem;
+body.home #header {
+  background: rgba(2, 40, 81, 0.28);
+  border-bottom-color: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
 }
 
-.hero-copy {
-  width: 58%;
+body.home #header a { color: rgba(255, 255, 255, 0.78); }
+body.home #header a:hover,
+body.home #header a.current { color: #fff; }
+
+body.home .theme-toggle {
+  border-color: rgba(255, 255, 255, 0.35);
+  color: #fff;
+}
+
+body.home .theme-toggle .dot {
+  background: #f6c445;
+}
+
+.home-main {
+  max-width: var(--width);
+  margin: 0 auto;
+  padding: 2.4rem 1.35rem 0;
+}
+
+.hero {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  height: min(100svh, 920px);
+  min-height: 34rem;
+  margin: 0;
+  padding: 6.2rem 1.35rem 3.4rem;
+  overflow: hidden;
+  color: #fff;
+  background: #022851;
+}
+
+.hero-video {
+  position: absolute;
+  inset: -4%;
+  width: 108%;
+  height: 108%;
+  object-fit: cover;
+  pointer-events: none;
+  transform: scale(1.08);
+  will-change: transform;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(2, 40, 81, 0.55) 0%, rgba(2, 40, 81, 0.18) 28%, rgba(2, 40, 81, 0.52) 58%, rgba(2, 40, 81, 0.92) 100%),
+    linear-gradient(90deg, rgba(2, 40, 81, 0.72) 0%, rgba(2, 40, 81, 0.25) 55%, rgba(2, 40, 81, 0.08) 100%);
+  z-index: 1;
+}
+
+.hero-wrap {
   position: relative;
   z-index: 2;
+  max-width: 40rem;
+  text-shadow: 0 1px 22px rgba(2, 40, 81, 0.45);
 }
 
-.hero-copy p { max-width: 36rem; }
-
-.accent { color: var(--blue); font-weight: 600; }
-
-.hero-links {
-  display: flex;
-  gap: 1.6rem;
-  margin-top: 2em;
+.eyebrow {
+  margin: 0 0 0.7rem;
+  font-size: 0.82rem;
   font-weight: 600;
-  width: 60%;
-  justify-content: space-between;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.82);
 }
 
-.hero-links a { color: var(--ink); }
-
-.hero-media {
-  width: 42%;
-  position: relative;
-  min-height: 16rem;
+.hero h1 {
+  margin: 0 0 0.85rem;
+  color: #fff;
+  font-size: clamp(2.6rem, 7vw, 4.4rem);
+  line-height: 0.98;
 }
 
-.hero-media video {
+.hero-sub {
+  max-width: 36rem;
+  margin: 0 0 1.5rem;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 1.05rem;
+  line-height: 1.45;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  text-shadow: none;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.45rem;
+  padding: 0.45rem 1rem;
+  border: 1px solid transparent;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn-light {
+  background: #fff;
+  border-color: #fff;
+  color: var(--blue);
+}
+
+.btn-light:hover {
+  background: transparent;
+  border-color: #fff;
+  color: #fff;
+  text-decoration: none;
+}
+
+.btn-outline-light {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.55);
+  color: #fff;
+}
+
+.btn-outline-light:hover {
+  background: #fff;
+  border-color: #fff;
+  color: var(--blue);
+  text-decoration: none;
+}
+
+.hero-progress {
   position: absolute;
-  top: -40px;
-  left: 40px;
-  width: 300px;
-  max-width: none;
-  height: auto;
-  z-index: 1;
-  clip-path: inset(1px);
-  pointer-events: none;
+  z-index: 3;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.16);
 }
+
+.hero-progress span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #7ba3d9;
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.hero-toggle {
+  position: absolute;
+  z-index: 3;
+  right: 1.35rem;
+  bottom: 1.2rem;
+  width: 2.4rem;
+  height: 2.4rem;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  background: rgba(2, 40, 81, 0.4);
+  color: #fff;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
+.hero-toggle:hover,
+.hero-toggle:focus-visible {
+  background: rgba(2, 40, 81, 0.75);
+  outline: none;
+}
+
+.hero-toggle svg {
+  width: 0.75rem;
+  height: 0.75rem;
+  fill: currentColor;
+}
+
+.hero-toggle .i-play,
+.hero-toggle.is-paused .i-pause { display: none; }
+
+.hero-toggle.is-paused .i-play { display: block; }
 
 .home-highlights {
   margin: 0.4rem 0 0;
@@ -674,39 +819,20 @@ a.highlight:hover {
     flex-wrap: wrap;
   }
 
-  .hero,
   .faculty {
     flex-direction: column;
   }
 
   .hero {
-    padding-top: 1.2rem;
-    margin-bottom: 1.5rem;
-    min-height: 0;
-    flex-direction: column;
+    min-height: 28rem;
+    height: min(92svh, 760px);
+    padding: 5.2rem 1.1rem 2.8rem;
+    align-items: flex-end;
   }
 
-  .hero-copy,
-  .hero-media { width: 100%; }
-
-  .hero-links {
-    width: 100%;
-    flex-wrap: wrap;
-    gap: 1rem 1.4rem;
-    justify-content: flex-start;
-  }
-
-  .hero-media {
-    min-height: 0;
-    margin-top: 1.4rem;
-  }
-
-  .hero-media video {
-    position: relative;
-    top: 0;
-    left: 0;
-    width: min(300px, 70vw);
-    z-index: 0;
+  .hero-toggle {
+    right: 1.1rem;
+    bottom: 1rem;
   }
 
   .mySlides img { height: min(42vh, 280px); }
@@ -774,9 +900,31 @@ html.night .grant-title,
 html.night .person-info a,
 html.night .project h3 a,
 html.night .courses b,
-html.night .contact-block .label,
-html.night .hero-links a {
+html.night .contact-block .label {
   color: #e8eef4;
+}
+
+html.night body.home #header {
+  background: rgba(15, 18, 24, 0.55);
+  border-bottom-color: #2a3340;
+}
+
+html.night .hero {
+  background: #0f1218;
+}
+
+html.night .hero::after {
+  background:
+    linear-gradient(180deg, rgba(15, 18, 24, 0.62) 0%, rgba(15, 18, 24, 0.28) 28%, rgba(15, 18, 24, 0.58) 58%, rgba(15, 18, 24, 0.94) 100%),
+    linear-gradient(90deg, rgba(15, 18, 24, 0.78) 0%, rgba(15, 18, 24, 0.3) 55%, rgba(15, 18, 24, 0.12) 100%);
+}
+
+html.night .hero-progress span {
+  background: #9db7ff;
+}
+
+html.night .hero-toggle {
+  background: rgba(15, 18, 24, 0.5);
 }
 
 html.night a { color: #e8eef4; }
