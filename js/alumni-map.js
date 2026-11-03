@@ -115,9 +115,9 @@
       '<p class="alumni-map-count"><strong>' +
       entry.people.length +
       "</strong> alumni</p>" +
-      '<ul class="alumni-map-list">' +
+      '<div class="alumni-map-scroll"><ul class="alumni-map-list">' +
       people +
-      "</ul>";
+      "</ul></div>";
   }
 
   function showOverview() {
@@ -147,10 +147,11 @@
       "</strong> people mapped across <strong>" +
       Object.keys(byIso).length +
       "</strong> countries</p>" +
+      '<div class="alumni-map-scroll">' +
       '<p class="meta alumni-map-note">Locations inferred from LinkedIn profiles and public affiliations. Click a country or chip to explore.</p>' +
       '<div class="alumni-map-chips">' +
       rows +
-      "</div>";
+      "</div></div>";
 
     panel.querySelectorAll("[data-iso]").forEach(function (btn) {
       btn.addEventListener("click", function () {
