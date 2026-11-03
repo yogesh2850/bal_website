@@ -1,36 +1,27 @@
 (function () {
-  var slides = document.querySelectorAll(".mySlides");
+  var container = document.querySelector(".slideshow-container");
+  if (!container) return;
+
+  var slides = container.querySelectorAll(".mySlides");
   if (!slides.length) return;
+
   var index = 0;
   var timer = null;
-  var intervalMs = 3500;
+  var intervalMs = 4500;
 
   function show(n) {
-    index = (n + slides.length) % slides.length;
+    index = ((n % slides.length) + slides.length) % slides.length;
     for (var i = 0; i < slides.length; i++) {
       slides[i].style.display = "none";
+      slides[i].classList.remove("is-active");
     }
-    slides[index].style.display = "block";
-  }
-
-  function next() {
-    show(index + 1);
-  }
-
-  function prev() {
-    show(index - 1);
-  }
-
-  function start() {
-    stop();
-    timer = setInterval(next, intervalMs);
-  }
-
-  function stop() {
-    if (timer) {
-      clearInterval(timer);
-      timer = null;
-    }
+    var active = slides[index];
+    active.style.display = "block";
+    // retrigger fade so the change is visible
+    active.classList.remove("fade");
+    void active.offsetWidth;
+    active.classList.add("fade");
+    active.classList.add("is-active");
   }
 
   function go(delta) {
@@ -38,10 +29,38 @@
     start();
   }
 
-  var prevBtn = document.querySelector(".slide-nav.prev");
-  var nextBtn = document.querySelector(".slide-nav.next");
-  if (prevBtn) prevBtn.addEventListener("click", function () { go(-1); });
-  if (nextBtn) nextBtn.addEventListener("click", function () { go(1); });
+  function start() {
+    stop();
+    timer = window.setInterval(function () {
+      show(index + 1);
+    }, intervalMs);
+  }
+
+  function stop() {
+    if (timer != null) {
+      window.clearInterval(timer);
+      timer = null;
+    }
+  }
+
+  container.addEventListener("click", function (event) {
+    var target = event.target;
+    if (!(target instanceof Element)) return;
+    var btn = target.closest(".slide-nav");
+    if (!btn || !container.contains(btn)) return;
+    event.preventDefault();
+    event.stopPropagation();
+    if (btn.classList.contains("prev")) go(-1);
+    else if (btn.classList.contains("next")) go(1);
+  });
+
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "ArrowLeft") go(-1);
+    else if (event.key === "ArrowRight") go(1);
+  });
+
+  container.addEventListener("mouseenter", stop);
+  container.addEventListener("mouseleave", start);
 
   show(0);
   start();
