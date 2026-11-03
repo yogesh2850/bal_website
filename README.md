@@ -2,6 +2,8 @@
 
 Website for the Bio-Automation Lab in Biological and Agricultural Engineering at the University of California, Davis.
 
+**Live site:** [yogesh-chawla.com/bal_website](https://yogesh-chawla.com/bal_website/)
+
 Open `index.html` in a browser, or from this folder:
 
 ```bash
