@@ -148,6 +148,15 @@
   <h2>Alumni</h2>
   <p class="meta">Current occupation and open-source photos from public faculty and personal pages where available.</p>
 
+  <section class="alumni-map-section" aria-label="Interactive alumni map">
+    <h3>Where alumni are now</h3>
+    <p class="meta">Interactive map of current locations inferred from LinkedIn profiles and public affiliations. Click a country to see people and open their profiles.</p>
+    <div class="alumni-map-layout">
+      <div id="alumni-map" class="alumni-map-canvas"></div>
+      <aside id="alumni-map-panel" class="alumni-map-panel" aria-live="polite"></aside>
+    </div>
+  </section>
+
   <h3>R&amp;D engineer</h3>
   <ul class="people">
     <li class="person">
@@ -471,6 +480,9 @@
     <div class="footer-base"><div class="wrap">&copy; 2026 Bio-Automation Lab, UC Davis</div></div>
   </footer>
 
-<script src="js/theme.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
+  <script src="js/alumni-map.js"></script>
+  <script src="js/theme.js"></script>
 </body>
 </html>

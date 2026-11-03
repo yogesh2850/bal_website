@@ -256,6 +256,129 @@ body.home {
 
 
 
+.alumni-map-section {
+  margin: 1.1rem 0 1.8rem;
+  padding: 1.1rem 1rem 1.15rem;
+  background: #eef1f4;
+  border: 1px solid var(--line);
+}
+
+.alumni-map-section > h3 {
+  margin-top: 0;
+}
+
+.alumni-map-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(14rem, 0.9fr);
+  gap: 0.9rem 1rem;
+  margin-top: 0.85rem;
+  align-items: stretch;
+}
+
+.alumni-map-canvas {
+  width: 100%;
+  min-height: 16rem;
+  background: #f7f8fa;
+  border: 1px solid var(--line);
+}
+
+.alumni-map-canvas svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.alumni-map-sphere {
+  fill: #f7f8fa;
+}
+
+.alumni-map-canvas path.country.is-active {
+  stroke: var(--blue) !important;
+  stroke-width: 1.4px !important;
+}
+
+.alumni-map-panel {
+  background: #fff;
+  border: 1px solid var(--line);
+  padding: 0.85rem 0.9rem;
+  min-height: 16rem;
+}
+
+.alumni-map-panel h4 {
+  margin: 0 0 0.35rem;
+  color: var(--ink);
+  font-size: 1.05rem;
+}
+
+.alumni-map-count {
+  margin: 0 0 0.55rem;
+  color: var(--ink);
+}
+
+.alumni-map-note {
+  margin: 0 0 0.7rem;
+}
+
+.alumni-map-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.alumni-map-chip {
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--blue);
+  font: inherit;
+  font-size: 0.86rem;
+  font-weight: 600;
+  padding: 0.28rem 0.55rem;
+  cursor: pointer;
+}
+
+.alumni-map-chip:hover,
+.alumni-map-chip:focus-visible {
+  border-color: var(--blue);
+  background: var(--blue);
+  color: #fff;
+  outline: none;
+}
+
+.alumni-map-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.alumni-map-list li {
+  margin: 0 0 0.65rem;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.alumni-map-list li:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.alumni-map-list a {
+  color: var(--blue);
+  font-weight: 600;
+}
+
+.alumni-map-role {
+  display: block;
+  margin-top: 0.12rem;
+  color: var(--grey);
+  font-size: 0.9rem;
+  line-height: 1.3;
+}
+
+.alumni-map-empty {
+  margin: 0;
+}
+
 .home-highlights {
   margin: 1.6rem -1.35rem 0;
   padding: 1.75rem 1.35rem 1.55rem;
@@ -755,6 +878,10 @@ a.highlight:hover {
   .highlight {
     width: min(84vw, 280px);
   }
+
+  .alumni-map-layout {
+    grid-template-columns: 1fr;
+  }
 }
 
 html.night body {
@@ -843,6 +970,46 @@ html.night .project,
 
 html.night .robot:hover .robot-name {
   color: #9db7ff;
+}
+
+html.night .alumni-map-section {
+  background: #171c24;
+  border-color: #2a3340;
+}
+
+html.night .alumni-map-canvas,
+html.night .alumni-map-panel,
+html.night .alumni-map-chip {
+  background: #151a22;
+  border-color: #2a3340;
+}
+
+html.night .alumni-map-sphere {
+  fill: #151a22;
+}
+
+html.night .alumni-map-panel h4,
+html.night .alumni-map-count {
+  color: #e8eef4;
+}
+
+html.night .alumni-map-chip {
+  color: #9db7ff;
+}
+
+html.night .alumni-map-chip:hover,
+html.night .alumni-map-chip:focus-visible {
+  background: #2a4a7a;
+  border-color: #2a4a7a;
+  color: #fff;
+}
+
+html.night .alumni-map-list a {
+  color: #9db7ff;
+}
+
+html.night .alumni-map-list li {
+  border-bottom-color: #2a3340;
 }
 
 html.night .home-highlights {
