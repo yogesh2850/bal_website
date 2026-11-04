@@ -396,7 +396,136 @@
     });
   }
 
-  function showOverview() {
+  function normalizeQuery(q) {
+    return String(q || "")
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, " ");
+  }
+
+  function personMatches(person, q) {
+    if (!q) return true;
+    var hay = [person.name, person.role, person.region, person.country]
+      .join(" ")
+      .toLowerCase();
+    return hay.indexOf(q) !== -1;
+  }
+
+  function personListItem(p, includeCountry) {
+    return (
+      '<li data-id="' +
+      p.id +
+      '"' +
+      (p.iso ? ' data-iso="' + esc(p.iso) + '"' : "") +
+      ">" +
+      '<a href="' +
+      esc(p.url) +
+      '" target="_blank" rel="noopener">' +
+      esc(p.name) +
+      "</a>" +
+      '<span class="alumni-map-region">' +
+      esc(includeCountry ? p.country + " · " + p.region : p.region) +
+      "</span>" +
+      '<span class="alumni-map-role">' +
+      esc(p.role) +
+      "</span>" +
+      "</li>"
+    );
+  }
+
+  function bindPersonList(scopeIso) {
+    panel.querySelectorAll(".alumni-map-list li").forEach(function (li) {
+      li.addEventListener("click", function (event) {
+        if (event.target.closest("a")) return;
+        var id = li.getAttribute("data-id");
+        var iso = li.getAttribute("data-iso") || scopeIso;
+        if (iso && activeIso !== iso) {
+          enterCountry(iso, id);
+          return;
+        }
+        selectPerson(id, false);
+      });
+      var link = li.querySelector("a");
+      if (link) {
+        link.addEventListener("mouseenter", function () {
+          if (activeIso && (!scopeIso || activeIso === scopeIso)) {
+            selectPerson(li.getAttribute("data-id"), false);
+          }
+        });
+      }
+    });
+  }
+
+  function renderOverviewBody(query) {
+    var q = normalizeQuery(query);
+    var scroll = panel.querySelector(".alumni-map-scroll");
+    if (!scroll) return;
+
+    if (!q) {
+      var rows = Object.keys(byIso)
+        .map(function (iso) {
+          return byIso[iso];
+        })
+        .sort(function (a, b) {
+          return b.people.length - a.people.length;
+        })
+        .map(function (entry) {
+          return (
+            '<button type="button" class="alumni-map-chip" data-iso="' +
+            entry.iso +
+            '">' +
+            esc(entry.country) +
+            " · " +
+            entry.people.length +
+            "</button>"
+          );
+        })
+        .join("");
+
+      scroll.innerHTML =
+        '<p class="meta alumni-map-note">Click a country to zoom in. Then use + / − (or scroll) and drag to explore regions.</p>' +
+        '<div class="alumni-map-chips">' +
+        rows +
+        "</div>";
+
+      panel.querySelectorAll("[data-iso]").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          enterCountry(btn.getAttribute("data-iso"));
+        });
+      });
+      return;
+    }
+
+    var matches = ALUMNI.filter(function (p) {
+      return personMatches(p, q);
+    }).sort(function (a, b) {
+      return a.name.localeCompare(b.name);
+    });
+
+    if (!matches.length) {
+      scroll.innerHTML =
+        '<p class="alumni-map-empty">No alumni match “' + esc(query.trim()) + '”.</p>';
+      return;
+    }
+
+    scroll.innerHTML =
+      '<p class="meta alumni-map-note"><strong>' +
+      matches.length +
+      "</strong> match" +
+      (matches.length === 1 ? "" : "es") +
+      " · click to zoom to their country</p>" +
+      '<ul class="alumni-map-list">' +
+      matches
+        .map(function (p) {
+          return personListItem(p, true);
+        })
+        .join("") +
+      "</ul>";
+
+    bindPersonList(null);
+  }
+
+  function showOverview(preservedQuery) {
     activeIso = null;
     activePersonId = null;
     countryBase = null;
@@ -409,26 +538,6 @@
       .style("pointer-events", null);
     updateZoomButtons();
 
-    var rows = Object.keys(byIso)
-      .map(function (iso) {
-        return byIso[iso];
-      })
-      .sort(function (a, b) {
-        return b.people.length - a.people.length;
-      })
-      .map(function (entry) {
-        return (
-          '<button type="button" class="alumni-map-chip" data-iso="' +
-          entry.iso +
-          '">' +
-          esc(entry.country) +
-          " · " +
-          entry.people.length +
-          "</button>"
-        );
-      })
-      .join("");
-
     panel.innerHTML =
       "<h4>Alumni worldwide</h4>" +
       '<p class="alumni-map-count"><strong>' +
@@ -436,48 +545,60 @@
       "</strong> people mapped across <strong>" +
       Object.keys(byIso).length +
       "</strong> countries</p>" +
-      '<div class="alumni-map-scroll">' +
-      '<p class="meta alumni-map-note">Click a country to zoom in. Then use + / − (or scroll) and drag to explore regions.</p>' +
-      '<div class="alumni-map-chips">' +
-      rows +
-      "</div></div>";
+      '<label class="alumni-map-search-label" for="alumni-map-search">Search by name or title</label>' +
+      '<input type="search" id="alumni-map-search" class="alumni-map-search" placeholder="Search name or title…" autocomplete="off" spellcheck="false">' +
+      '<div class="alumni-map-scroll"></div>';
 
-    panel.querySelectorAll("[data-iso]").forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        enterCountry(btn.getAttribute("data-iso"));
-      });
+    var input = document.getElementById("alumni-map-search");
+    input.value = preservedQuery || "";
+    renderOverviewBody(input.value);
+    input.addEventListener("input", function () {
+      renderOverviewBody(input.value);
     });
+    if (preservedQuery) {
+      input.focus();
+      var len = input.value.length;
+      input.setSelectionRange(len, len);
+    }
+  }
+
+  function renderCountryPeople(iso, query) {
+    var entry = byIso[iso];
+    if (!entry) return;
+    var q = normalizeQuery(query);
+    var people = entry.people
+      .slice()
+      .filter(function (p) {
+        return personMatches(p, q);
+      })
+      .sort(function (a, b) {
+        return a.region.localeCompare(b.region) || a.name.localeCompare(b.name);
+      });
+
+    var scroll = panel.querySelector(".alumni-map-scroll");
+    if (!scroll) return;
+
+    if (!people.length) {
+      scroll.innerHTML =
+        '<p class="alumni-map-empty">No alumni match “' + esc(String(query || "").trim()) + '”.</p>';
+      return;
+    }
+
+    scroll.innerHTML =
+      '<ul class="alumni-map-list">' +
+      people
+        .map(function (p) {
+          return personListItem(p, false);
+        })
+        .join("") +
+      "</ul>";
+    bindPersonList(iso);
+    if (activePersonId) selectPerson(activePersonId, false);
   }
 
   function showCountryPanel(iso) {
     var entry = byIso[iso];
     if (!entry) return;
-
-    var people = entry.people
-      .slice()
-      .sort(function (a, b) {
-        return a.region.localeCompare(b.region) || a.name.localeCompare(b.name);
-      })
-      .map(function (p) {
-        return (
-          '<li data-id="' +
-          p.id +
-          '">' +
-          '<a href="' +
-          esc(p.url) +
-          '" target="_blank" rel="noopener">' +
-          esc(p.name) +
-          "</a>" +
-          '<span class="alumni-map-region">' +
-          esc(p.region) +
-          "</span>" +
-          '<span class="alumni-map-role">' +
-          esc(p.role) +
-          "</span>" +
-          "</li>"
-        );
-      })
-      .join("");
 
     panel.innerHTML =
       '<button type="button" class="alumni-map-back" id="alumni-map-back">← All countries</button>' +
@@ -487,32 +608,28 @@
       '<p class="alumni-map-count"><strong>' +
       entry.people.length +
       "</strong> alumni · +/− zoom · drag to pan</p>" +
-      '<div class="alumni-map-scroll"><ul class="alumni-map-list">' +
-      people +
-      "</ul></div>";
+      '<label class="alumni-map-search-label" for="alumni-map-search">Search by name or title</label>' +
+      '<input type="search" id="alumni-map-search" class="alumni-map-search" placeholder="Search name or title…" autocomplete="off" spellcheck="false">' +
+      '<div class="alumni-map-scroll"></div>';
 
     document.getElementById("alumni-map-back").addEventListener("click", function () {
       leaveCountry();
     });
 
-    panel.querySelectorAll(".alumni-map-list li").forEach(function (li) {
-      li.addEventListener("click", function (event) {
-        if (event.target.closest("a")) return;
-        selectPerson(li.getAttribute("data-id"), false);
-      });
-      li.querySelector("a").addEventListener("mouseenter", function () {
-        selectPerson(li.getAttribute("data-id"), false);
-      });
+    var input = document.getElementById("alumni-map-search");
+    renderCountryPeople(iso, "");
+    input.addEventListener("input", function () {
+      renderCountryPeople(iso, input.value);
     });
   }
 
-  function enterCountry(iso) {
+  function enterCountry(iso, personId) {
     var entry = byIso[iso];
     var feature = countryByIso[iso];
     if (!entry || !feature) return;
 
     activeIso = iso;
-    activePersonId = null;
+    activePersonId = personId || null;
     showCountryPanel(iso);
 
     clearActiveCountries();
@@ -539,6 +656,7 @@
     setProjection(target, 800, function () {
       redrawPoints(true);
       updateZoomButtons();
+      if (personId) selectPerson(personId, true);
     });
 
     if (iso === "USA") {

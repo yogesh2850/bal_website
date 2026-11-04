@@ -598,6 +598,37 @@ body.home #header.is-solid nav a.current {
   margin: 0 0 0.7rem;
 }
 
+.alumni-map-search-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.alumni-map-search {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0 0 0.65rem;
+  padding: 0.4rem 0.55rem;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.9rem;
+}
+
+.alumni-map-search:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 2px rgba(2, 40, 81, 0.12);
+}
+
 .alumni-map-chips {
   display: flex;
   flex-wrap: wrap;
