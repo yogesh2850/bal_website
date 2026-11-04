@@ -223,18 +223,24 @@ img { max-width: 100%; height: auto; }
 
 
 
-#header a {
+#header nav a {
+  font-family: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   color: var(--grey);
+  padding: 0.35rem 0.45rem;
   transition: color 0.2s ease;
 }
 
-#header a:hover,
-#header a.current {
-  color: var(--ink);
+#header nav a:hover,
+#header nav a.current {
+  color: var(--blue);
   text-decoration: none;
 }
 
-#header a.current { font-weight: 600; }
+#header nav a.current { font-weight: 700; }
 
 body.home {
   overflow-x: clip;
