@@ -171,8 +171,8 @@ img { max-width: 100%; height: auto; }
   padding: 0.65rem 1.35rem;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  gap: 1.2rem 1.6rem;
+  justify-content: space-between;
+  gap: 0.85rem 1rem;
   flex-wrap: wrap;
 }
 
@@ -183,7 +183,6 @@ img { max-width: 100%; height: auto; }
   flex: none;
   text-decoration: none;
   white-space: nowrap;
-  margin-right: auto;
 }
 
 .site-brand:hover {
@@ -211,35 +210,14 @@ img { max-width: 100%; height: auto; }
 
 #header nav {
   display: flex;
-  gap: 1.35rem;
-  flex: 1 1 auto;
-  width: auto;
-  max-width: 28rem;
-  justify-content: space-between;
-}
-
-.theme-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
+  gap: 0.95rem;
   flex: none;
-  border: 1px solid var(--line);
-  background: transparent;
-  color: var(--ink);
-  border-radius: 999px;
-  padding: 5px 12px 5px 8px;
-  font-family: inherit;
-  font-size: 14px;
-  cursor: pointer;
+  width: auto;
+  margin-left: auto;
+  justify-content: flex-end;
 }
 
-.theme-toggle .dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #f6c445;
-  box-shadow: 0 0 0 3px rgba(246, 196, 69, 0.28);
-}
+
 
 #header a {
   color: var(--grey);
@@ -886,10 +864,11 @@ a.highlight:hover {
   }
 
   #header nav {
-    width: 100%;
-    max-width: none;
-    gap: 0.8rem;
+    width: auto;
+    margin-left: auto;
+    gap: 0.7rem;
     flex-wrap: wrap;
+    justify-content: flex-end;
   }
 
   .hero,
@@ -939,11 +918,7 @@ a.highlight:hover {
 
   .video { padding-top: 56.25%; }
 
-  .theme-toggle {
-    padding: 7px;
-  }
 
-  .theme-label { display: none; }
 
   .home-highlights .section-head {
     align-items: flex-start;
@@ -1032,15 +1007,7 @@ html.night .site-brand-uni {
   border-left-color: rgba(254, 191, 16, 0.45);
 }
 
-html.night .theme-toggle {
-  border-color: #3a4554;
-  color: #e8eef4;
-}
 
-html.night .theme-toggle .dot {
-  background: #d5e4ff;
-  box-shadow: 0 0 0 3px rgba(213, 228, 255, 0.22);
-}
 
 html.night .meta,
 html.night .occ,
