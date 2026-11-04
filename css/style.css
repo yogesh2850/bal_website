@@ -279,23 +279,23 @@ body.home #header {
 }
 
 body.home .site-brand-name {
-  color: var(--gold);
-  text-shadow: 0 1px 12px rgba(2, 40, 81, 0.35);
+  color: var(--blue);
+  text-shadow: 0 1px 10px rgba(255, 255, 255, 0.55);
 }
 
 body.home .site-brand-uni {
-  border-left-color: rgba(254, 191, 16, 0.45);
-  filter: drop-shadow(0 1px 8px rgba(2, 40, 81, 0.25));
+  border-left-color: rgba(2, 40, 81, 0.28);
+  filter: drop-shadow(0 1px 8px rgba(255, 255, 255, 0.45));
 }
 
 body.home #header nav a {
-  color: rgba(255, 255, 255, 0.95);
-  text-shadow: 0 1px 10px rgba(2, 40, 81, 0.35);
+  color: var(--blue);
+  text-shadow: 0 1px 10px rgba(255, 255, 255, 0.55);
 }
 
 body.home #header nav a:hover,
 body.home #header nav a.current {
-  color: var(--gold);
+  color: #011a36;
 }
 
 /* After scrolling past the hero, restore a solid readable bar */
