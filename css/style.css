@@ -454,16 +454,10 @@ body.home #header.is-solid nav a.current {
   position: absolute;
   right: 0.55rem;
   bottom: 0.55rem;
-  z-index: 4;
+  z-index: 5;
   display: flex;
   flex-direction: column;
   gap: 0.28rem;
-  opacity: 0.45;
-  pointer-events: none;
-  transition: opacity 0.2s ease;
-}
-
-.alumni-map-controls.is-active {
   opacity: 1;
   pointer-events: auto;
 }

@@ -188,7 +188,7 @@
     updateZoomButtons();
   }
 
-  function setProjection(next, duration) {
+  function setProjection(next, duration, onDone) {
     var from = {
       scale: projection.scale(),
       translate: projection.translate().slice()
@@ -208,9 +208,10 @@
           refreshGeometry();
         };
       })
-      .on("end interrupt", function () {
+      .on("end.zoomstate interrupt.zoomstate", function () {
         zoomAnimating = false;
         updateZoomButtons();
+        if (typeof onDone === "function") onDone();
       });
   }
 
@@ -229,7 +230,10 @@
   }
 
   function zoomBy(factor) {
-    if (!activeIso || !countryBase || zoomAnimating) return;
+    if (!activeIso || !countryBase) return;
+    // Interrupt any in-flight zoom so rapid +/- clicks still respond.
+    svg.interrupt();
+    zoomAnimating = false;
     var from = currentProjectionState();
     var nextScale = clampScale(from.scale * factor);
     if (Math.abs(nextScale - from.scale) < 0.5) {
@@ -243,7 +247,7 @@
       scale: nextScale,
       translate: [cx - k * (cx - from.translate[0]), cy - k * (cy - from.translate[1])]
     };
-    setProjection(next, 280);
+    setProjection(next, 220);
   }
 
   function panBy(dx, dy) {
@@ -532,7 +536,7 @@
       scale: target.scale,
       translate: target.translate.slice()
     };
-    setProjection(target, 800).on("end", function () {
+    setProjection(target, 800, function () {
       redrawPoints(true);
       updateZoomButtons();
     });
