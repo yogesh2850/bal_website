@@ -264,7 +264,8 @@ img { max-width: 100%; height: auto; }
 }
 
 body.home {
-  padding-top: 0;
+  max-width: none;
+  padding: 0;
 }
 
 /* Home: transparent top bar over the hero video */
@@ -325,16 +326,14 @@ body.home #header.is-solid nav a.current {
   align-items: flex-end;
   overflow: hidden;
   position: relative;
-  left: 50%;
-  right: 50%;
-  width: 100vw;
-  max-width: 100vw;
-  height: min(100svh, 1200px);
-  min-height: 560px;
+  width: 100%;
+  max-width: none;
+  /* Viewport-locked like RobotΠ: video frame stays full-screen under Ctrl+/- */
+  height: 100svh;
+  height: 100dvh;
+  min-height: 100svh;
   margin: 0;
-  margin-left: -50vw;
-  margin-right: -50vw;
-  padding: 5.6rem max(1.35rem, calc((100vw - var(--width)) / 2)) clamp(2.4rem, 8vh, 4rem);
+  padding: calc(var(--header-h) + 2.4rem) max(1.35rem, calc((100vw - var(--width)) / 2)) clamp(2.4rem, 8vh, 4rem);
   box-sizing: border-box;
 }
 
@@ -344,6 +343,7 @@ body.home #header.is-solid nav a.current {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   opacity: 0.6;
   pointer-events: none;
   z-index: 0;
@@ -354,19 +354,19 @@ body.home #header.is-solid nav a.current {
   max-width: 40rem;
   position: relative;
   z-index: 2;
-  color: rgba(255, 255, 255, 0.88);
-  text-shadow: 0 1px 18px rgba(2, 40, 81, 0.45);
+  color: #1a4068;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.55), 0 0 18px rgba(255, 255, 255, 0.35);
 }
 
 .hero-copy h1 {
-  color: #fff;
+  color: var(--blue);
 }
 
 .hero-copy p { max-width: 36rem; }
 
 .hero-copy .accent {
-  color: var(--gold);
-  font-weight: 600;
+  color: var(--blue);
+  font-weight: 700;
 }
 
 .accent { color: var(--blue); font-weight: 600; }
@@ -632,6 +632,17 @@ body.home #header.is-solid nav a.current {
   background: #f3f4f6;
 }
 
+/* Home is already full-bleed — no negative-margin breakout needed */
+body.home .home-highlights,
+body.home .site-footer {
+  left: auto;
+  right: auto;
+  width: 100%;
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+}
+
 .home-highlights .section-head {
   display: flex;
   align-items: flex-end;
@@ -697,17 +708,16 @@ body.home #header.is-solid nav a.current {
 .highlight {
   flex: 0 0 auto;
   width: min(78vw, 300px);
-  background: var(--blue);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  color: rgba(255, 255, 255, 0.88);
+  background: #fff;
+  border: 1px solid var(--line);
+  color: inherit;
   text-decoration: none;
   display: block;
 }
 
 a.highlight:hover {
   text-decoration: none;
-  border-color: var(--gold);
-  color: #fff;
+  border-color: var(--blue);
 }
 
 .highlight-text {
@@ -722,12 +732,12 @@ a.highlight:hover {
   display: inline-block;
   margin-bottom: 0.45rem;
   padding: 0.12rem 0.45rem;
-  border: 1px solid rgba(255, 255, 255, 0.28);
+  border: 1px solid var(--line);
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--ink);
 }
 
 .highlight-venue {
@@ -735,7 +745,7 @@ a.highlight:hover {
   margin-bottom: 0.4rem;
   font-size: 0.82rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--blue);
   line-height: 1.3;
 }
 
@@ -744,7 +754,7 @@ a.highlight:hover {
   font-size: 0.98rem;
   font-weight: 600;
   line-height: 1.3;
-  color: #fff;
+  color: var(--ink);
 }
 
 .roller.is-static .roller-track {
@@ -1327,8 +1337,10 @@ body.page {
   }
 
   .hero {
-    min-height: 480px;
-    padding-top: 4.5rem;
+    height: 100svh;
+    height: 100dvh;
+    min-height: 100svh;
+    padding-top: calc(var(--header-h) + 1.2rem);
     padding-bottom: 1.8rem;
     flex-direction: column;
     align-items: flex-start;
