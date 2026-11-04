@@ -183,6 +183,7 @@ img { max-width: 100%; height: auto; }
   flex: none;
   text-decoration: none;
   white-space: nowrap;
+  line-height: 0;
 }
 
 .site-brand:hover {
@@ -190,16 +191,19 @@ img { max-width: 100%; height: auto; }
 }
 
 .site-brand-name {
-  font-size: 1.27rem; /* 1.15rem + 10% */
+  display: inline-flex;
+  align-items: center;
+  height: 1.17rem;
+  font-size: 1.14rem; /* prior 1.27rem - 10% */
   font-weight: 700;
   letter-spacing: -0.01em;
   color: var(--blue);
-  line-height: 1.1;
+  line-height: 1;
 }
 
 .site-brand-uni {
   display: block;
-  height: 1.3rem; /* prior 1.45rem - 10% */
+  height: 1.17rem; /* prior 1.3rem - 10% */
   width: auto;
   margin-left: 0.45rem;
   padding-left: 0.55rem;
@@ -855,11 +859,12 @@ a.highlight:hover {
   }
 
   .site-brand-name {
-    font-size: 1.15rem;
+    font-size: 1.04rem; /* prior 1.15rem - 10% */
+    height: 1.01rem;
   }
 
   .site-brand-uni {
-    height: 1.125rem; /* prior 1.25rem - 10% */
+    height: 1.01rem; /* prior 1.125rem - 10% */
     padding-left: 0.45rem;
   }
 
