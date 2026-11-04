@@ -268,38 +268,44 @@ body.home {
   padding: 0;
 }
 
-/* Home: transparent top bar over the hero video */
+/* Home: fully transparent header over the hero video */
 body.home #header {
   background: transparent;
+  background-color: transparent;
   backdrop-filter: none;
-  border-bottom-color: transparent;
-  transition: background-color 0.25s ease, border-color 0.25s ease, backdrop-filter 0.25s ease;
+  -webkit-backdrop-filter: none;
+  border-bottom: 1px solid transparent;
+  box-shadow: none;
+  transition: background-color 0.25s ease, border-color 0.25s ease, backdrop-filter 0.25s ease, box-shadow 0.25s ease;
 }
 
 body.home .site-brand-name {
-  color: #fff;
-  text-shadow: 0 1px 14px rgba(2, 40, 81, 0.35);
+  color: var(--gold);
+  text-shadow: 0 1px 12px rgba(2, 40, 81, 0.35);
 }
 
 body.home .site-brand-uni {
-  border-left-color: rgba(255, 255, 255, 0.35);
+  border-left-color: rgba(254, 191, 16, 0.45);
+  filter: drop-shadow(0 1px 8px rgba(2, 40, 81, 0.25));
 }
 
 body.home #header nav a {
-  color: rgba(255, 255, 255, 0.9);
-  text-shadow: 0 1px 12px rgba(2, 40, 81, 0.3);
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 1px 10px rgba(2, 40, 81, 0.35);
 }
 
 body.home #header nav a:hover,
 body.home #header nav a.current {
-  color: #fff;
+  color: var(--gold);
 }
 
 /* After scrolling past the hero, restore a solid readable bar */
 body.home #header.is-solid {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border-bottom-color: var(--line);
+  box-shadow: 0 1px 0 rgba(2, 40, 81, 0.04);
 }
 
 body.home #header.is-solid .site-brand-name {
@@ -309,6 +315,7 @@ body.home #header.is-solid .site-brand-name {
 
 body.home #header.is-solid .site-brand-uni {
   border-left-color: rgba(2, 40, 81, 0.22);
+  filter: none;
 }
 
 body.home #header.is-solid nav a {

@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=21">
+  <link rel="stylesheet" href="css/style.css?v=22">
 </head>
 <body class="home">
   <header id="header">
@@ -30,12 +30,15 @@
   <script>
     (function () {
       var header = document.getElementById("header");
+      var hero = document.querySelector(".hero");
       if (!header) return;
       function syncHeader() {
-        header.classList.toggle("is-solid", window.scrollY > 48);
+        var threshold = hero ? Math.max(80, hero.offsetHeight * 0.72) : 80;
+        header.classList.toggle("is-solid", window.scrollY > threshold);
       }
       syncHeader();
       window.addEventListener("scroll", syncHeader, { passive: true });
+      window.addEventListener("resize", syncHeader);
     })();
   </script>
 
