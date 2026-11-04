@@ -365,7 +365,7 @@ body.home #header.is-solid nav a.current {
 .hero-copy p { max-width: 36rem; }
 
 .hero-copy .accent {
-  color: var(--blue);
+  color: var(--gold);
   font-weight: 700;
 }
 
