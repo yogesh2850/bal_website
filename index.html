@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=11">
+  <link rel="stylesheet" href="css/style.css?v=17">
 </head>
 <body class="home">
   <header id="header">
@@ -27,6 +27,17 @@
       </nav>
     </div>
   </header>
+  <script>
+    (function () {
+      var header = document.getElementById("header");
+      if (!header) return;
+      function syncHeader() {
+        header.classList.toggle("is-solid", window.scrollY > 48);
+      }
+      syncHeader();
+      window.addEventListener("scroll", syncHeader, { passive: true });
+    })();
+  </script>
 
   <div class="hero">
     <video
@@ -42,12 +53,13 @@
       <source src="assets/home-robots-reel.mp4" type="video/mp4">
     </video>
     <div class="hero-copy">
-      <h1>Bio-Automation<br>Lab</h1>
+      <h1>Where Robots Meet<br>the Living World.</h1>
       <p>We are the <span class="accent">Bio-Automation Lab @ UC Davis</span>. We work on agricultural robotics, mechanization, and automation for specialty crops, focusing on robotic and robot-aided harvesting and on actuators, perception, and control for managing inputs and products.</p>
       <div class="hero-links">
         <a href="https://scholar.google.com/citations?user=bbeoNpUAAAAJ&amp;hl=en">Google Scholar</a>
         <a href="https://bae.ucdavis.edu/">Department</a>
         <a href="mailto:svougioukas@ucdavis.edu">Email</a>
+        <a href="contact.html">Join Us</a>
       </div>
     </div>
   </div>
