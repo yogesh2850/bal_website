@@ -199,7 +199,7 @@ img { max-width: 100%; height: auto; }
 
 .site-brand-uni {
   display: block;
-  height: 1.45rem; /* baseline ~1.32rem + 10% */
+  height: 1.3rem; /* prior 1.45rem - 10% */
   width: auto;
   margin-left: 0.45rem;
   padding-left: 0.55rem;
@@ -859,7 +859,7 @@ a.highlight:hover {
   }
 
   .site-brand-uni {
-    height: 1.25rem; /* ~1.14rem + 10% */
+    height: 1.125rem; /* prior 1.25rem - 10% */
     padding-left: 0.45rem;
   }
 
