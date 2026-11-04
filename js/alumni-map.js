@@ -127,11 +127,50 @@
   var countryFeatures = [];
   var countryByIso = {};
   var usStates = null;
+  var countryBase = null;
+  var zoomAnimating = false;
+  var ZOOM_STEP = 1.35;
+  var MAX_ZOOM_MULT = 12;
   var tooltip = d3
     .select(mount)
     .append("div")
     .attr("class", "alumni-map-tooltip")
     .style("opacity", 0);
+
+  var controls = d3
+    .select(mount)
+    .append("div")
+    .attr("class", "alumni-map-controls")
+    .attr("role", "group")
+    .attr("aria-label", "Map zoom");
+
+  controls
+    .append("button")
+    .attr("type", "button")
+    .attr("class", "alumni-map-zoom-btn")
+    .attr("id", "alumni-map-zoom-in")
+    .attr("aria-label", "Zoom in")
+    .attr("title", "Zoom in")
+    .text("+");
+
+  controls
+    .append("button")
+    .attr("type", "button")
+    .attr("class", "alumni-map-zoom-btn")
+    .attr("id", "alumni-map-zoom-out")
+    .attr("aria-label", "Zoom out")
+    .attr("title", "Zoom out")
+    .text("−");
+
+  function updateZoomButtons() {
+    var inCountry = !!activeIso && !!countryBase;
+    var scale = projection.scale();
+    var minScale = inCountry ? countryBase.scale : worldProjection.scale;
+    var maxScale = inCountry ? countryBase.scale * MAX_ZOOM_MULT : worldProjection.scale;
+    document.getElementById("alumni-map-zoom-in").disabled = !inCountry || scale >= maxScale * 0.98;
+    document.getElementById("alumni-map-zoom-out").disabled = !inCountry || scale <= minScale * 1.02;
+    controls.classed("is-active", inCountry);
+  }
 
   function esc(s) {
     return String(s == null ? "" : s)
@@ -139,6 +178,14 @@
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;");
+  }
+
+  function refreshGeometry() {
+    countriesLayer.selectAll("path.country").attr("d", path);
+    countriesLayer.selectAll("path.alumni-map-sphere").attr("d", path);
+    statesLayer.selectAll("path.state").attr("d", path);
+    redrawPoints(false);
+    updateZoomButtons();
   }
 
   function setProjection(next, duration) {
@@ -150,6 +197,7 @@
     var interpTx = d3.interpolateNumber(from.translate[0], next.translate[0]);
     var interpTy = d3.interpolateNumber(from.translate[1], next.translate[1]);
 
+    zoomAnimating = true;
     return svg
       .transition()
       .duration(duration || 750)
@@ -157,12 +205,97 @@
       .tween("zoom", function () {
         return function (t) {
           projection.scale(interpScale(t)).translate([interpTx(t), interpTy(t)]);
-          countriesLayer.selectAll("path.country").attr("d", path);
-          statesLayer.selectAll("path.state").attr("d", path);
-          redrawPoints(false);
+          refreshGeometry();
         };
+      })
+      .on("end interrupt", function () {
+        zoomAnimating = false;
+        updateZoomButtons();
       });
   }
+
+  function currentProjectionState() {
+    return {
+      scale: projection.scale(),
+      translate: projection.translate().slice()
+    };
+  }
+
+  function clampScale(scale) {
+    if (!countryBase) return scale;
+    var min = countryBase.scale;
+    var max = countryBase.scale * MAX_ZOOM_MULT;
+    return Math.max(min, Math.min(max, scale));
+  }
+
+  function zoomBy(factor) {
+    if (!activeIso || !countryBase || zoomAnimating) return;
+    var from = currentProjectionState();
+    var nextScale = clampScale(from.scale * factor);
+    if (Math.abs(nextScale - from.scale) < 0.5) {
+      updateZoomButtons();
+      return;
+    }
+    var cx = width / 2;
+    var cy = height / 2;
+    var k = nextScale / from.scale;
+    var next = {
+      scale: nextScale,
+      translate: [cx - k * (cx - from.translate[0]), cy - k * (cy - from.translate[1])]
+    };
+    setProjection(next, 280);
+  }
+
+  function panBy(dx, dy) {
+    if (!activeIso || zoomAnimating) return;
+    var t = projection.translate();
+    projection.translate([t[0] + dx, t[1] + dy]);
+    refreshGeometry();
+  }
+
+  document.getElementById("alumni-map-zoom-in").addEventListener("click", function (event) {
+    event.stopPropagation();
+    zoomBy(ZOOM_STEP);
+  });
+  document.getElementById("alumni-map-zoom-out").addEventListener("click", function (event) {
+    event.stopPropagation();
+    zoomBy(1 / ZOOM_STEP);
+  });
+
+  // Drag to pan when zoomed into a country.
+  var dragOrigin = null;
+  svg
+    .style("touch-action", "none")
+    .on("pointerdown", function (event) {
+      if (!activeIso || event.button !== 0) return;
+      if (event.target.closest && event.target.closest(".alum-point")) return;
+      dragOrigin = [event.clientX, event.clientY];
+      svg.classed("is-panning", true);
+      try {
+        svg.node().setPointerCapture(event.pointerId);
+      } catch (e) {}
+    })
+    .on("pointermove", function (event) {
+      if (!dragOrigin) return;
+      var dx = event.clientX - dragOrigin[0];
+      var dy = event.clientY - dragOrigin[1];
+      dragOrigin = [event.clientX, event.clientY];
+      panBy(dx, dy);
+    })
+    .on("pointerup pointercancel pointerleave", function () {
+      dragOrigin = null;
+      svg.classed("is-panning", false);
+    });
+
+  mount.addEventListener(
+    "wheel",
+    function (event) {
+      if (!activeIso || !countryBase) return;
+      event.preventDefault();
+      zoomBy(event.deltaY < 0 ? ZOOM_STEP : 1 / ZOOM_STEP);
+    },
+    { passive: false }
+  );
 
   function fitToFeature(feature, pad) {
     var p = pad || 28;
@@ -262,6 +395,7 @@
   function showOverview() {
     activeIso = null;
     activePersonId = null;
+    countryBase = null;
     statesLayer.selectAll("*").remove();
     pointsLayer.selectAll("*").remove();
     clearActiveCountries();
@@ -269,6 +403,7 @@
       .selectAll("path.country")
       .attr("opacity", 1)
       .style("pointer-events", null);
+    updateZoomButtons();
 
     var rows = Object.keys(byIso)
       .map(function (iso) {
@@ -298,7 +433,7 @@
       Object.keys(byIso).length +
       "</strong> countries</p>" +
       '<div class="alumni-map-scroll">' +
-      '<p class="meta alumni-map-note">Click a country to zoom in and see each person by region.</p>' +
+      '<p class="meta alumni-map-note">Click a country to zoom in. Then use + / − (or scroll) and drag to explore regions.</p>' +
       '<div class="alumni-map-chips">' +
       rows +
       "</div></div>";
@@ -347,7 +482,7 @@
       "</h4>" +
       '<p class="alumni-map-count"><strong>' +
       entry.people.length +
-      "</strong> alumni · click a pin or name</p>" +
+      "</strong> alumni · +/− zoom · drag to pan</p>" +
       '<div class="alumni-map-scroll"><ul class="alumni-map-list">' +
       people +
       "</ul></div>";
@@ -393,8 +528,13 @@
       .attr("stroke", "#022851");
 
     var target = fitToFeature(feature, iso === "USA" ? 18 : 36);
+    countryBase = {
+      scale: target.scale,
+      translate: target.translate.slice()
+    };
     setProjection(target, 800).on("end", function () {
       redrawPoints(true);
+      updateZoomButtons();
     });
 
     if (iso === "USA") {
@@ -419,9 +559,11 @@
   function leaveCountry() {
     activeIso = null;
     activePersonId = null;
+    countryBase = null;
     statesLayer.selectAll("*").remove();
     pointsLayer.selectAll("*").remove();
     tooltip.style("opacity", 0);
+    updateZoomButtons();
     setProjection(worldProjection, 750);
     countriesLayer
       .selectAll("path.country")
